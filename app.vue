@@ -4,8 +4,10 @@ import '~/assets/css/tailwind.css'
 
 <template>
   <main>
+    <Sidebar>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+  </Sidebar>
   </main>
 </template>
