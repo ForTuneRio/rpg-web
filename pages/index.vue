@@ -39,7 +39,6 @@ const fetchData = async () => {
         <p>{{ response }}</p>
       </div>
     </div>
-    
     <!-- Input and Send Button -->
     <div class="flex gap-1 mb-2">
       <div class="flex-1 relative border-2 border-gray-300 p-3 rounded-lg flex">
@@ -56,4 +55,3 @@ const fetchData = async () => {
     </div>
   </div>
 </template>
-
