@@ -1,5 +1,5 @@
 <template>
-<div class="flex h-screen">
+  <div class="flex h-screen">
     <!-- Sidebar -->
     <aside class="w-64 h-screen fixed bg-gray-800 text-white">
       <div class="p-6">
@@ -15,7 +15,7 @@
     </aside>
 
     <!-- Main Content -->
-    <div class="ml-64 flex-1 p-6">
+    <div class="ml-64 flex-1">
       <slot />
     </div>
   </div>

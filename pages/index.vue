@@ -1,14 +1,54 @@
+<template>
+  <div class="flex flex-col h-full items-center">
+    <!-- Chat messages display area -->
+    <div class="flex-1 w-1/2 p-4 overflow-y-auto bg-white">
+      <Message
+        v-for="(msg, index) in chatMessages"
+        :key="index"
+        :content="msg.content"
+        :role="msg.role"
+      />
+    </div>
+
+    <!-- Input area -->
+    <div class="p-4 bg-white shadow-lg w-1/2">
+      <form @submit.prevent="fetchData" class="flex">
+        <input
+          v-model="message"
+          type="text"
+          placeholder="Type a message..."
+          class="flex-1 border rounded-l-lg p-2 focus:outline-none"
+        />
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600"
+        >
+          Send
+        </button>
+      </form>
+
+      <!-- Error or response display -->
+      <div v-if="response" class="text-red-500 mt-2 text-center">{{ response }}</div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import Message from '~/components/Message.vue'
 import { ref } from 'vue'
 
 const message = ref('')
 const response = ref(null)
-const chatMessages = ref([])
+const chatMessages = ref([
+  { content: 'Hello! How can I assist you today?', role: 'chat' },
+  { content: 'awda', role: 'user' },
+])
 
 const fetchData = async () => {
+  if (message.value.trim() === '') return // Prevent empty messages
+
   try {
-    const res = await fetch(`http://127.0.0.1:5000/ask?prompt=${message.value}`)
+    const res = await fetch(`http://127.0.0.1:5000/ask?prompt=${encodeURIComponent(message.value)}`)
     const data = await res.json()
 
     if (res.ok) {
@@ -24,34 +64,3 @@ const fetchData = async () => {
   }
 }
 </script>
-<template>
-  <div class="h-screen w-full max-w-4xl mx-auto flex flex-col justify-between">
-    <div class="flex-1 p-2 overflow-auto">
-      <!-- Loop through chatMessages to display the conversation -->
-      <Message
-        v-for="(chat, index) in chatMessages"
-        :key="index"
-        :content="chat.content"
-        :role="chat.role"
-      />
-      <!-- Display error response if any -->
-      <div v-if="response" class="mt-4 border p-4 rounded-lg">
-        <p>{{ response }}</p>
-      </div>
-    </div>
-    <!-- Input and Send Button -->
-    <div class="flex gap-1 mb-2">
-      <div class="flex-1 relative border-2 border-gray-300 p-3 rounded-lg flex">
-        <input
-          v-model="message"
-          type="text"
-          class="w-full outline-none"
-          placeholder="Message ChatGPT..."
-        />
-        <div class="flex gap-2">
-          <button @click="fetchData">➤</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>

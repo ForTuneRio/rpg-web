@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <Sidebar>
     <slot />
-  </main>
+  </Sidebar>
 </template>
