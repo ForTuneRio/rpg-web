@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col h-full items-center">
-    <!-- Chat messages display area -->
     <div class="flex-1 w-1/2 p-4 overflow-y-auto bg-white">
       <Message
         v-for="(msg, index) in chatMessages"
@@ -9,8 +8,6 @@
         :role="msg.role"
       />
     </div>
-
-    <!-- Input area -->
     <div class="m-4 bg-white shadow-lg w-1/2 rounded-lg">
       <form @submit.prevent="fetchData" class="flex">
         <input
@@ -26,8 +23,6 @@
           Send
         </button>
       </form>
-
-      <!-- Error or response display -->
       <div v-if="response" class="text-red-500 mt-2 text-center">{{ response }}</div>
     </div>
   </div>
@@ -39,29 +34,22 @@ import { ref } from 'vue'
 
 const message = ref('')
 const response = ref(null)
-
-// Chat messages (track conversation history)
 const chatMessages = ref([
   { content: 'Hello! How can I assist you today?', role: 'chat' }
 ])
-
-// Function to send the message and fetch response from the server
 const fetchData = async () => {
-  if (message.value.trim() === '') return // Prevent empty messages
+  if (message.value.trim() === '') return
 
   try {
-    // Prepare the conversation history to send to the API
     const messagesToSend = chatMessages.value.map(msg => ({
       role: msg.role === 'user' ? 'user' : 'assistant',
       content: msg.content
     }))
 
-    // Add the current user message to the conversation
     messagesToSend.push({ role: 'user', content: message.value })
 
-    // Send the conversation history to the backend
     const res = await fetch(`http://127.0.0.1:5000/ask`, {
-      method: 'POST', // Using POST to send the full conversation
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: messagesToSend })
     })
@@ -69,13 +57,8 @@ const fetchData = async () => {
     const data = await res.json()
 
     if (res.ok) {
-      // Add user message to chat
       chatMessages.value.push({ content: message.value, role: 'user' })
-
-      // Add bot response to chat
       chatMessages.value.push({ content: data.value, role: 'chat' })
-
-      // Clear input after sending
       message.value = ''
       response.value = null
     } else {
