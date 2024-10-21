@@ -18,7 +18,7 @@
         />
         <button
           type="submit"
-          class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600"
+          class="bg-neutral-400 text-white px-4 py-2 rounded-r-lg hover:bg-neutral-500"
         >
           Send
         </button>
@@ -35,7 +35,7 @@ import { ref } from 'vue'
 const message = ref('')
 const response = ref(null)
 const chatMessages = ref([
-  { content: 'Hello! How can I assist you today?', role: 'chat' }
+  { content: 'Please explane who is your character', role: 'chat' }
 ])
 const fetchData = async () => {
   if (message.value.trim() === '') return

@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen">
     <!-- Sidebar -->
-    <aside class="w-64 h-screen fixed bg-gray-800 text-white">
+    <aside class="w-64 h-screen fixed bg-neutral-800 text-white">
       <div class="p-6">
         <h1 class="text-2xl font-semibold">My Sidebar</h1>
       </div>
