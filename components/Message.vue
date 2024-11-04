@@ -32,7 +32,7 @@
       <div class="flex items-start gap-2">
         <!-- Message content -->
         <div
-          class="bg-blue-500 text-white p-2 rounded-lg max-w-xl break-words"
+          class="bg-gray-500 text-white p-2 rounded-lg max-w-xl break-words"
         >
           {{ content }}
         </div>
