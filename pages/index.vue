@@ -1,5 +1,6 @@
 <template>
-  <div class="flex flex-col h-full items-center">
+  <div class="flex flex-col h-screen items-center">
+    <!-- Messages Container -->
     <div class="flex-1 w-1/2 p-4 overflow-y-auto bg-white">
       <Message
         v-for="(msg, index) in chatMessages"
@@ -8,6 +9,8 @@
         :role="msg.role"
       />
     </div>
+
+    <!-- Input Field at the Bottom -->
     <div class="m-4 bg-white shadow-lg w-1/2 rounded-lg">
       <form @submit.prevent="fetchData" class="flex">
         <input
@@ -35,7 +38,7 @@ import { ref } from 'vue'
 const message = ref('')
 const response = ref(null)
 const chatMessages = ref([
-  { content: 'Please explane who is your character', role: 'chat' }
+  { content: 'Please explain who your character is.', role: 'chat' }
 ])
 const fetchData = async () => {
   if (message.value.trim() === '') return
